@@ -28,10 +28,24 @@ function draw() {
     rowContent.forEach(function (cellContent) {
       const cell = document.createElement("div");
       cell.classList.add("cell");
+      if (cellContent === 1) {
+        cell.classList.add("bar");
+      }
 
       grid.appendChild(cell);
     });
   });
+  document.querySelectorAll(".bar").forEach(function (bar) {
+    bar.computedStyleMap.backgroundColor = "#fff805";
+  });
+}
+
+function endGame() {
+  if (isVictory) {
+    endGameText.innerHTML = "YOU <br /> WON!";
+    endGameScreen.classList.add("win");
+  }
+  endGameScreen.classList.remove("hidden");
 }
 
 function checkWin() {
@@ -110,6 +124,11 @@ function main() {
   moveBar();
 }
 
+function onPlayAgain() {
+  window.location.reload();
+}
+
 stackBtn.addEventListener("click", onStack);
+playAgainBtn.addEventListener("click", onPlayAgain);
 
 const gameInterval = setInterval(main, 600);
