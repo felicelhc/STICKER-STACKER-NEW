@@ -1,5 +1,5 @@
 const grid = document.querySelector(".grid");
-const stackBtn = document.querySelector(".stack");
+const stackBtn = document.querySelector(".stack-btn");
 const scoreCounter = document.querySelector(".score-no");
 const endGameScreen = document.querySelector(".end-game-screen");
 const endGameText = document.querySelector(".end-game-text");
@@ -34,12 +34,39 @@ function draw() {
   });
 }
 
+function checkWin() {
+  if (currentRowIndex === 0) {
+    isGameOver = true;
+    clearInterval(gameInterval);
+  }
+}
+
+function checkLost() {
+  const currentRow = gridMatrix[currentRowIndex];
+  const prevRow = gridMatrix[currentRowIndex + 1];
+  if (!prevRow) return;
+
+  for (let i = 0; i < currentRow.length; i++) {
+    currentRow[i] = 0;
+    barSize--;
+  }
+
+  if (barSize === 0) {
+    isGameOver = true;
+    clearInterval(gameInterval);
+  }
+}
+
 function updateScore() {
   score += barSize;
   scoreCounter.innerText = score.toString().padStart(5, 0);
 }
 
 function onStack() {
+  checkWin();
+  checkLost();
+  updateScore();
+  if (isGameOver) return;
   currentRowIndex--;
   // currentRowIndex = currentRowIndex - 1
   barDirection = "right";
@@ -49,7 +76,7 @@ function onStack() {
   }
 }
 
-function mvoeRight(currentRow) {
+function moveRight(currentRow) {
   currentRow.pop();
   currentRow.unshift(0);
 }
@@ -64,7 +91,7 @@ function moveBar() {
 
   if (barDirection === "right") {
     moveRight(currentRow);
-    const lastElement = crrentRow[currentRow.length - 1];
+    const lastElement = currentRow[currentRow.length - 1];
     if (lastElement === 1) {
       barDirection = "left";
     }
