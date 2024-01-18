@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  font-weight: bold;
+  margin: 10;
+  padding: 10;
+}
+
+body {
+  background: #000;
+  color: #fff;
+  font-family: "darker grotesque";
+  font-size: 40px;
+  padding: 20px;
+}
+
+.game-container {
+  background-color: #000;
+  width: 484px;
+}
+
+.game-panel {
+  background-color: #000;
+}
+
+.game-panel {
+  background-color: #000;
+}
+
+.score {
+  font-size: 32px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.game-board {
+  border: 2px solid #000;
+  color: rgb(85, 225, 255);
+  font-size: 30px;
+  position: relative;
+}
+
+h1 {
+  color: #fff;
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 360px;
+}
+
+.cell {
+  border: 1px solid #fff;
+  height: 60px;
+  width: 60px;
+  cursor: pointer;
+}
+
+.game-over-screen {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  gap: 16px;
+}
+
+.game-over-text {
+  background: #000;
+  font-family: "Press Start 2p";
+  font-size: 48px;
+  padding: 10px 5px 5px 5px;
+  text-transform: uppercase;
+}
+
+.play-again {
+  background: #fff;
+  border: solid 1px #fff;
+  font-family: "darker grotesque";
+  font-size: 24px;
+  padding: 4px 20px 8px 20px;
+  text-transform: uppercase;
+}
+
+.hidden {
+  display: none;
+}
+
+.stack-btn {
+  background: #fff;
+  border: solid 1px #fff;
+  font-size: 24px;
+  margin-top: 10px;
+  padding: 4px 20px 8px 20px;
+  text-transform: uppercase;
+}
