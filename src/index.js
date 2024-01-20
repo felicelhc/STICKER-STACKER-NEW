@@ -1,8 +1,9 @@
+// select relevant elements from HTML
 const grid = document.querySelector(".grid");
 const stackBtn = document.querySelector(".stack-btn");
 const scoreCounter = document.querySelector(".score-no");
-const endGameScreen = document.querySelector(".end-game-screen");
-const endGameText = document.querySelector(".end-game-text");
+const endGameScreen = document.querySelector(".game-over-screen");
+const endGameText = document.querySelector(".game-over-text");
 const playAgainBtn = document.querySelector(".play-again");
 
 const gridMatrix = [
