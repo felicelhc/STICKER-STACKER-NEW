@@ -46,6 +46,47 @@ function draw() {
   // });
 }
 
+function moveRight(row) {
+  row.pop();
+  row.unshift(0);
+}
+
+function moveLeft(row) {
+  row.shift();
+  row.push(0);
+}
+
+function isRightEdge(row) {
+  // checks if the far right element of 'row' has a value of 1
+  const lastElement = row[row.length - 1];
+  return lastElement === 1;
+}
+
+function isLeftEdge(row) {
+  // same but for far left
+  const firstElement = row[0];
+  return firstElement === 1;
+}
+
+function moveBar() {
+  const currentRow = gridMatrix[currentRowIndex];
+
+  if (barDirection === "right") {
+    moveRight(currentRow);
+    // if bar reaches right edge, it needs to be moved to the left
+    if (isRightEdge(currentRow)) {
+      barDirection = "left";
+    }
+  } else if (barDirection === "left") {
+    moveLeft(currentRow);
+    // same for left
+    if (isLeftEdge(currentRow)) {
+      barDirection = "right";
+    }
+  }
+}
+
+// game logic functions here 
 function endGame() {
   if (isVictory) {
     endGameText.innerHTML = "YOU <br /> WON!";
@@ -96,35 +137,6 @@ function onStack() {
   }
 }
 
-function moveRight(currentRow) {
-  currentRow.pop();
-  currentRow.unshift(0);
-}
-
-function moveLeft(currentRow) {
-  currentRow.shift();
-  currentRow.push(0);
-}
-
-function moveBar() {
-  const currentRow = gridMatrix[currentRowIndex];
-
-  if (barDirection === "right") {
-    moveRight(currentRow);
-    const lastElement = currentRow[currentRow.length - 1];
-    if (lastElement === 1) {
-      barDirection = "left";
-    }
-  } else if (barDirection === "left") {
-    moveLeft(currentRow);
-
-    const firstElement = currentRow[0];
-
-    if (firstElement === 1) {
-      barDirection = "right";
-    }
-  }
-}
 function main() {
   draw();
   moveBar();
