@@ -6,6 +6,7 @@ const endGameScreen = document.querySelector(".game-over-screen");
 const endGameText = document.querySelector(".game-over-text");
 const playAgainBtn = document.querySelector(".play-again");
 
+// create Matrix for grid (0 = empty cell; 1 = bar)
 const gridMatrix = [
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
@@ -14,9 +15,10 @@ const gridMatrix = [
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0],
-  [1, 1, 1, 0, 0, 0],
+  [1, 1, 1, 0, 0, 0], // starting currentRowIndex
 ];
 
+// variables for game setup
 let currentRowIndex = gridMatrix.length - 1;
 let barDirection = "right";
 let barSize = 3;
@@ -24,21 +26,24 @@ let isGameOver = false;
 let score = 0;
 
 function draw() {
-  grid.innerHTML = "";
+  // reset grid
+  grid.innerHTML = " ";
   gridMatrix.forEach(function (rowContent) {
     rowContent.forEach(function (cellContent) {
+      // create cell
       const cell = document.createElement("div");
       cell.classList.add("cell");
+      // cells that bar occupies
       if (cellContent === 1) {
         cell.classList.add("bar");
       }
-
+      // put cell in grid
       grid.appendChild(cell);
     });
   });
-  document.querySelectorAll(".bar").forEach(function (bar) {
-    bar.computedStyleMap.backgroundColor = "#fff805";
-  });
+  // document.querySelectorAll(".bar").forEach(function (bar) {
+  //   bar.computedStyleMap.backgroundColor = "#fff805";
+  // });
 }
 
 function endGame() {
