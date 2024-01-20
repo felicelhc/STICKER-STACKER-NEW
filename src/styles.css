@@ -72,10 +72,12 @@ h1 {
 
 .bar {
   background: #55e1ff;
+  border: 1px solid #000;
   border-radius: 4px;
 }
 
 .game-over-screen {
+  background: #000;
   position: absolute;
   top: 0;
   right: 0;
@@ -93,12 +95,11 @@ h1 {
   background: #000;
   font-family: "Press Start 2p";
   font-size: 48px;
-  padding: 10px 5px 5px 5px;
   text-transform: uppercase;
 }
 
 .win {
-  backround: #000;
+  background: #000;
 }
 
 .play-again {

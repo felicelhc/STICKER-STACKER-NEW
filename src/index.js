@@ -86,8 +86,8 @@ function moveBar() {
   }
 }
 
-// game logic functions here 
-function endGame() {
+// game logic functions here
+function endGame(isVictory) {
   if (isVictory) {
     endGameText.innerHTML = "YOU <br /> WON!";
     endGameScreen.classList.add("win");
@@ -95,26 +95,40 @@ function endGame() {
   endGameScreen.classList.remove("hidden");
 }
 
+function onPlayAgain() {
+  window.location.reload();
+}
+
 function checkWin() {
-  if (currentRowIndex === 0) {
+  // win condition: get to top of the grid
+  if (currentRowIndex === 0 && !isGameOver) {
+    updateScore();
     isGameOver = true;
     clearInterval(gameInterval);
+    endGame(true);
   }
 }
 
 function checkLost() {
+  // save ref to current & previous rows
   const currentRow = gridMatrix[currentRowIndex];
   const prevRow = gridMatrix[currentRowIndex + 1];
+  // no prev. row = exit function
   if (!prevRow) return;
-
+  // check if there is at least 1 accumulated stack element under each bar element
   for (let i = 0; i < currentRow.length; i++) {
-    currentRow[i] = 0;
-    barSize--;
-  }
-
-  if (barSize === 0) {
-    isGameOver = true;
-    clearInterval(gameInterval);
+    // no accum. stack
+    if (currentRow[i] === 1 && prevRow[i] === 0) {
+      // remove overhanging bar pieces
+      currentRow[i] = 0;
+      barSize--;
+      // no more bar pieces = game over
+      if (barSize === 0) {
+        isGameOver = true;
+        clearInterval(gameInterval);
+        endGame(false);
+      }
+    }
   }
 }
 
@@ -124,29 +138,29 @@ function updateScore() {
 }
 
 function onStack() {
-  checkWin();
+  // check if game = won/lost
   checkLost();
-  updateScore();
+  checkWin();
+  // game over = stop function
   if (isGameOver) return;
-  currentRowIndex--;
+  updateScore();
   // currentRowIndex = currentRowIndex - 1
+  currentRowIndex--;
   barDirection = "right";
-
+  // update gridMatrix to add bar to new row
   for (let i = 0; i < barSize; i++) {
-    gridMatrix[currentRowinex][i] = 1;
+    gridMatrix[currentRowIndex][i] = 1;
   }
 }
 
-function main() {
-  draw();
-  moveBar();
-}
-
-function onPlayAgain() {
-  window.location.reload();
-}
-
+// events
 stackBtn.addEventListener("click", onStack);
 playAgainBtn.addEventListener("click", onPlayAgain);
 
+// start game
+function main() {
+  moveBar();
+  draw();
+}
+// start game loop: calling 'main' every 600ms
 const gameInterval = setInterval(main, 600);
